@@ -1,12 +1,15 @@
 ---
-title: "DaikoroBlog"
-listing:
-  contents: posts
-  sort: "date desc"
-  type: default
-  categories: true
-  sort-ui: false
-  filter-ui: false
-page-layout: full
-title-block-banner: true
+title: "About"
+image: profile.jpg
+about:
+  template: jolla
+  links:
+    - icon: linkedin
+      text: LinkedIn
+      href: https://www.linkedin.com/in/nick-van-doormaal-9213a7a2/?locale=en_US
+    - icon: github
+      text: Github
+      href: https://github.com/nvdoormaal
 ---
+
+About this blog

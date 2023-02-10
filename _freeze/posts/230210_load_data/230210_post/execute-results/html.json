@@ -1,0 +1,16 @@
+{
+  "hash": "aec1b330eb17689878c23a3ccff3eb3a",
+  "result": {
+    "markdown": "---\ntitle: \"Load the data\"\nauthor: \"Nick van Doormaal\"\ndate: \"2023-02-10\"\ncategories: [load, read, data.table, fread, csv]\ndescription: \"In this post, I will show how to get your data in R\"\nexecute: \n  message: false\n  warning: false\neditor_options:\n  chunk_output_type: console\n---\n\n\n# Heading 1\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit.\n\n## Heading 2 - Merriweather\n\nNam suscipit est nec dui eleifend, at dictum elit ullamcorper.\n\n### R code\n\nThis is \\`inline\\` code plus a small code chunk.\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(tidyverse)\n\nggplot(mpg) +\n  geom_jitter(\n    aes(cty, hwy), size = 4, alpha = 0.5\n  )\n```\n\n::: {.cell-output-display}\n![](230210_post_files/figure-html/unnamed-chunk-1-1.png){width=672}\n:::\n:::\n\n\n### 3 - Tabsets\n\n\n::: {.cell}\n\n```{.r .cell-code}\nknitr::opts_chunk$set(collapse = T)\n\nlibrary(tidyverse)\n\ndat <- palmerpenguins::penguins %>% \n  filter(!is.na(sex))\nlm.mod <- dat %>%\n  mutate(\n    sex = if_else(sex == 'male', 1, 0),\n  ) %>% \n  lm(data = ., sex ~ body_mass_g + bill_length_mm + species) \npreds_lm <- dat %>% \n  mutate(\n    prob.fit = plogis(lm.mod$fitted.values),\n    prediction = if_else(prob.fit > 0.5, 'male', 'female'),\n    correct = if_else(sex == prediction, 'correct', 'incorrect')\n  )\n```\n:::\n\n\n::: panel-tabset\n### Transforming new\n\n\n::: {.cell}\n\n```{.r .cell-code  code-fold=\"true\"}\npreds_lm %>% \n  ggplot(aes(body_mass_g, bill_length_mm, col = correct)) +\n  geom_jitter(size = 4, alpha = 0.6) +\n  facet_wrap(vars(species)) +\n  scale_color_manual(values = c('grey60', thematic::okabe_ito(3)[3])) +\n  scale_x_continuous(breaks = seq(3000, 6000, 1000)) +\n  theme_minimal(base_size = 12) +\n  theme(\n    legend.position = 'top', \n    panel.background = element_rect(color = 'black'),\n    panel.grid.minor = element_blank()\n  ) +\n  labs(\n    x = 'Body mass (in g)',\n    y = 'Bill length (in mm)'\n  )\n```\n\n::: {.cell-output-display}\n![](230210_post_files/figure-html/unnamed-chunk-3-1.png){width=672}\n:::\n:::\n\n:::\n",
+    "supporting": [
+      "230210_post_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

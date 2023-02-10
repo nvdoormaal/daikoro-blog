@@ -1,31 +1,24 @@
 [
   {
-    "objectID": "about.html",
-    "href": "about.html",
+    "objectID": "blog.html",
+    "href": "blog.html",
+    "title": "DaikoroBlog",
+    "section": "",
+    "text": "Load the data\n\n\n\n\n\n\n\nload\n\n\nread\n\n\ndata.table\n\n\nfread\n\n\ncsv\n\n\n\n\nIn this post, I will show how to get your data in R\n\n\n\n\n\n\nFeb 10, 2023\n\n\nNick van Doormaal\n\n\n\n\n\n\n  \n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\n\n\nFeb 6, 2023\n\n\nTristan O’Malley\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
     "title": "About",
     "section": "",
     "text": "About this blog"
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "DaikoroBlog",
+    "objectID": "posts/230210_load_data/230210_post.html",
+    "href": "posts/230210_load_data/230210_post.html",
+    "title": "Load the data",
     "section": "",
-    "text": "Test Post\n\n\n\n\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\n\n\nFeb 10, 2023\n\n\nNick\n\n\n\n\n\n\n  \n\n\n\n\nPost With Code\n\n\n\n\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\n\n\nFeb 9, 2023\n\n\nHarlow Malloc\n\n\n\n\n\n\n  \n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\n\n\nFeb 6, 2023\n\n\nTristan O’Malley\n\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "posts/new-post-test/index.html",
-    "href": "posts/new-post-test/index.html",
-    "title": "Test Post",
-    "section": "",
-    "text": "Hello test test\n\nlibrary(dplyr)\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union"
-  },
-  {
-    "objectID": "posts/post-with-code/index.html",
-    "href": "posts/post-with-code/index.html",
-    "title": "Post With Code",
-    "section": "",
-    "text": "This is a post with executable code.\n\n1 + 1\n\n[1] 2"
+    "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n\n\nNam suscipit est nec dui eleifend, at dictum elit ullamcorper.\n\n\nThis is `inline` code plus a small code chunk.\n\nlibrary(tidyverse)\n\nggplot(mpg) +\n  geom_jitter(\n    aes(cty, hwy), size = 4, alpha = 0.5\n  )\n\n\n\n\n\n\n\n\nknitr::opts_chunk$set(collapse = T)\n\nlibrary(tidyverse)\n\ndat <- palmerpenguins::penguins %>% \n  filter(!is.na(sex))\nlm.mod <- dat %>%\n  mutate(\n    sex = if_else(sex == 'male', 1, 0),\n  ) %>% \n  lm(data = ., sex ~ body_mass_g + bill_length_mm + species) \npreds_lm <- dat %>% \n  mutate(\n    prob.fit = plogis(lm.mod$fitted.values),\n    prediction = if_else(prob.fit > 0.5, 'male', 'female'),\n    correct = if_else(sex == prediction, 'correct', 'incorrect')\n  )\n\n\nTransforming new\n\n\n\n\nCode\npreds_lm %>% \n  ggplot(aes(body_mass_g, bill_length_mm, col = correct)) +\n  geom_jitter(size = 4, alpha = 0.6) +\n  facet_wrap(vars(species)) +\n  scale_color_manual(values = c('grey60', thematic::okabe_ito(3)[3])) +\n  scale_x_continuous(breaks = seq(3000, 6000, 1000)) +\n  theme_minimal(base_size = 12) +\n  theme(\n    legend.position = 'top', \n    panel.background = element_rect(color = 'black'),\n    panel.grid.minor = element_blank()\n  ) +\n  labs(\n    x = 'Body mass (in g)',\n    y = 'Bill length (in mm)'\n  )"
   },
   {
     "objectID": "posts/welcome/index.html",
