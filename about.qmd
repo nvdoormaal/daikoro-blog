@@ -1,0 +1,21 @@
+---
+title: "About me"
+image: profile.jpg
+about:
+  template: jolla
+  links:
+    - icon: linkedin
+      text: LinkedIn
+      href: https://www.linkedin.com/in/nick-van-doormaal-9213a7a2/?locale=en_US
+    - icon: github
+      text: Github
+      href: https://github.com/nvdoormaal
+---
+
+Hello there and welcome to my blog! My name is Nick van Doormaal and I have a background in Criminology and Wildlife Conservation. I spend some time in South Africa for my PhD research and studied different poaching problems, including rhino poaching and bushmeat poaching. Nowadays I focus on things closer to home: crimes and activities that are harmful to the Dutch environment. Things like illegal removal of asbestos, dumps of synthetic drug waste, and trafficking of electronic waste.
+
+I spent most of my time analysing data and I have become a big fan of using R. I have been using it for all sorts of cool stuff like data wrangling, creating interactive visualisations, spatial analyses and making maps.
+
+I hope you'll find these posts useful and feel free to reach out if you're stuck with something or want to learn more about anything related to conservation, criminology, or R.
+
+Cheers!

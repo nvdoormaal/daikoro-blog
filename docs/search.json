@@ -1,17 +1,17 @@
 [
   {
-    "objectID": "blog.html",
-    "href": "blog.html",
-    "title": "DaikoroBlog",
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About me",
     "section": "",
-    "text": "Load the data\n\n\n\n\n\n\n\nload\n\n\nread\n\n\ndata.table\n\n\nfread\n\n\ncsv\n\n\n\n\nIn this post, I will show how to get your data in R\n\n\n\n\n\n\nFeb 10, 2023\n\n\nNick van Doormaal\n\n\n\n\n\n\n  \n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\n\n\nFeb 6, 2023\n\n\nTristan O’Malley\n\n\n\n\n\n\nNo matching items"
+    "text": "Hello there and welcome to my blog! My name is Nick van Doormaal and I have a background in Criminology and Wildlife Conservation. I spend some time in South Africa for my PhD research and studied different poaching problems, including rhino poaching and bushmeat poaching. Nowadays I focus on things closer to home: crimes and activities that are harmful to the Dutch environment. Things like illegal removal of asbestos, dumps of synthetic drug waste, and trafficking of electronic waste.\nI spent most of my time analysing data and I have become a big fan of using R. I have been using it for all sorts of cool stuff like data wrangling, creating interactive visualisations, spatial analyses and making maps.\nI hope you’ll find these posts useful and feel free to reach out if you’re stuck with something or want to learn more about anything related to conservation, criminology, or R.\nCheers!"
   },
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "About",
+    "title": "Interactive Reports for Wildlife Security in RStudio",
     "section": "",
-    "text": "About this blog"
+    "text": "Load the data\n\n\n\n\n\n\n\nload\n\n\nread\n\n\ndata.table\n\n\nfread\n\n\ncsv\n\n\n\n\nIn this post, I will show how to get your data in R; the first step of building the interactive report\n\n\n\n\n\n\nFeb 10, 2023\n\n\nNick van Doormaal\n\n\n\n\n\n\n  \n\n\n\n\nIntroduction to Interactive Reporting Tool\n\n\n\n\n\n\n\nabout\n\n\nintroduction\n\n\nreporting\n\n\nlearning\n\n\n\n\n\n\n\n\n\n\n\nFeb 6, 2023\n\n\nNick van Doormaal\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/230210_load_data/230210_post.html",
@@ -23,8 +23,8 @@
   {
     "objectID": "posts/welcome/index.html",
     "href": "posts/welcome/index.html",
-    "title": "Welcome To My Blog",
+    "title": "Introduction to Interactive Reporting Tool",
     "section": "",
-    "text": "This is the first post in a Quarto blog. Welcome!\n\nSince this post doesn’t specify an explicit image, the first image in the post will be used in the listing page of posts."
+    "text": "Hello there and welcome to my blog! My name is Nick and I have a background in Criminology and Wildlife Conservation. I spend some time in South Africa for my PhD research and helped the team building an automated reporting tool for wildlife security using the programming language ‘R’.\nIn this series, I’ll go into detail on how the report works and go step-by-step on how to build your own reporting tool. I’ll refer a lot to patrolling data and poaching in South Africa, because that was the context in which the original tool was built. Of course, you can easily adapt it to your situation and needs. The data that I used in this series are all simulated and do not reflect the actual situation on the ground. I did this on purpose to protect the patrolling rangers and not avoid spreading sensitive information on patrols and endangered species. The data is just to illustrate how the reporting tool works so that you can perhaps build your own.\nI assume you are already somewhat familiar with R and RStudio. If you are a complete beginner and are interested in learning R and how to install it, I suggest the following resources:\n\nInstalling R and RStudio: A guide on how to download and install R and RStudio on your computer. It will also guide you around the RStudio interface.\nIntroduction to R: Not the nicest looking guide, but very detailed guide on how the R-language works\nTidyverse: The tidyverse is a collection of open source packages for the R programming language introduced by Hadley Wickham and his team that “share an underlying design philosophy, grammar, and data structures” of tidy data. It encourages making your R-script much more readable and understandable. Throughout the blog series, I’ll rely heavily on the packages within the Tidyverse.\nR for Data Science: This is a great resource focussing on how to use R for Data Science. It’s very detailed and clearly explains how to do all sort of things in R; from simple things like reading your data to more advanced topics like web scraping.\n\nI hope you’ll find these posts useful and feel free to reach out if you’re stuck with something or want to learn more about anything related to conservation, criminology, or R."
   }
 ]

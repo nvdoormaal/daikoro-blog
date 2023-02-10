@@ -1,12 +1,24 @@
 ---
-title: "Welcome To My Blog"
-author: "Tristan O'Malley"
+title: "Introduction to Interactive Reporting Tool"
+author: "Nick van Doormaal"
 date: "2023-02-06"
-categories: [news]
+categories: [about, introduction, reporting, learning]
 ---
 
-This is the first post in a Quarto blog. Welcome!
+Hello there and welcome to my blog! My name is Nick and I have a background in Criminology and Wildlife Conservation. I spend some time in South Africa for my PhD research and helped the team building an automated reporting tool for wildlife security using the programming language 'R'.
 
-![](thumbnail.jpg)
+In this series, I'll go into detail on how the report works and go step-by-step on how to build your own reporting tool. I'll refer a lot to patrolling data and poaching in South Africa, because that was the context in which the original tool was built. Of course, you can easily adapt it to your situation and needs. The data that I used in this series are all simulated and do not reflect the actual situation on the ground. I did this on purpose to protect the patrolling rangers and not avoid spreading sensitive information on patrols and endangered species. The data is just to illustrate how the reporting tool works so that you can perhaps build your own.
 
-Since this post doesn't specify an explicit `image`, the first image in the post will be used in the listing page of posts.
+I assume you are already somewhat familiar with R and RStudio. If you are a complete beginner and are interested in learning R and how to install it, I suggest the following resources:
+
+-   [Installing R and RStudio](https://www.geeksforgeeks.org/introduction-to-r-studio/): A guide on how to download and install R and RStudio on your computer. It will also guide you around the RStudio interface.
+
+-   [Introduction to R](https://cran.r-project.org/doc/manuals/r-release/R-intro.pdf): Not the nicest looking guide, but very detailed guide on how the R-language works
+
+-   [Tidyverse](https://tidyverse.tidyverse.org/): The tidyverse is a collection of open source packages for the R programming language introduced by Hadley Wickham and his team that "share an underlying design philosophy, grammar, and data structures" of tidy data. It encourages making your R-script much more readable and understandable. Throughout the blog series, I'll rely heavily on the packages within the Tidyverse.
+
+-   [R for Data Science](https://r4ds.hadley.nz/): This is a great resource focussing on how to use R for Data Science. It's very detailed and clearly explains how to do all sort of things in R; from simple things like reading your data to more advanced topics like web scraping.
+
+I hope you'll find these posts useful and feel free to reach out if you're stuck with something or want to learn more about anything related to conservation, criminology, or R.
+
+![](230206_giraffe.jpg)
