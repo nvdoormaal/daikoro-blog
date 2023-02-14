@@ -2,7 +2,7 @@
 title: "Load the data"
 author: "Nick van Doormaal"
 date: "2023-02-10"
-categories: [load, read, data.table, fread, csv]
+categories: [load, read, data.table, fread, csv, sf, spatial]
 description: "In this post, I will show how to get your data in R; the first step of building the interactive report"
 execute: 
   message: false
@@ -11,13 +11,25 @@ editor_options:
   chunk_output_type: console
 ---
 
-# Heading 1
+# Get your data in R
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Before we can do anything, we first need to somehow get our data in R. In this blog post, I'll go into detail on several ways to do that. I
 
-## Heading 2 - Merriweather
+## Reading a single csv-file
 
-Nam suscipit est nec dui eleifend, at dictum elit ullamcorper.
+Perhaps the most common type of files used in data analyses are csv-files. You can read in your data using one of the ways below.
+
+### read_csv
+
+The function `read_csv` comes from the `readr`-package (which is part of the Tidyverse). The `read_csv` function takes several arguments for more advanced manipulations, but let's keep things simple for now.
+
+```{r load-data-csv}
+library(readr) ## this package is needed to get access to the read_csv function
+
+patrol_data <- data.table::fread(
+  file = "./posts/230210_load_data/data/Andy_Verzmoter_tracking_2022-04-20_10_39.csv.csv"
+)
+```
 
 ### R code
 
