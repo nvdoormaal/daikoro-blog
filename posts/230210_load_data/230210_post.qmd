@@ -27,7 +27,7 @@ The function `read_csv` comes from the `readr`-package (which is part of the Tid
 library(readr) ## this package is needed to get access to the read_csv function
 
 patrol_data <- read_csv(
-  file = "./posts/230210_load_data/data/230210_example_route.csv"
+  file = "./data/230210_example_route.csv"
 )
 ```
 
@@ -35,7 +35,7 @@ patrol_data <- read_csv(
 
 ```{r load-data-delim}
 patrol_data_delim <- read_delim(
-  file = "./posts/230210_load_data/data/230210_example_route.csv",
+  file = "./data/230210_example_route.csv",
   delim = ","
 )
 all.equal(patrol_data, patrol_data_delim)
@@ -51,7 +51,7 @@ One downside of read_csv is that it might not be the fastest option. I haven't r
 library(data.table)
 
 patrol_data_fread <- fread(
-  input = "./posts/230210_load_data/data/230210_example_route.csv"
+  input = "./data/230210_example_route.csv"
 )
 ```
 
@@ -66,7 +66,7 @@ You don't have to specify all the files in R, but you can read in multiple files
 ```{r load-csv-list-files}
 ## List all the csv-files in a folder
 csv_files <- list.files(
-  path = "./posts/230210_load_data/data/", ## Here's where you specify the directory to your data files
+  path = "./data/", ## Here's where you specify the directory to your data files
   pattern = ".csv", ## Here's where you specify the file extension or the common word across the files
 
 )
@@ -74,7 +74,7 @@ csv_files
 
 ## List all the csv-files that have the word 'route' in common
 route_files <- list.files(
-  path = "./posts/230210_load_data/data/",
+  path = "./data/",
   pattern = "route", ## Here's where you specify the file extension or the common word across the files
   full.names = TRUE ## This needs to be set to TRUE for reading multiple files later
 )
@@ -92,7 +92,7 @@ patrol_data_list <- map(
 patrol_data_list
 ```
 
-The output of `patrol_data_list` is a list of data frames; one data.frame for every file. You can try replacing `route_files` with `csv_files` to see what happens when you don't specify `full.names = TRUE`.
+The output of `patrol_data_list` is a list of data frames; one data.frame for every file. You can try replacing `route_files` with the object `csv_files` to see what happens when you don't specify `full.names = TRUE`.
 
 Reading the files in separately is handy and efficient, but is usually not easy to work with. Combining all the dataframes in a list is possible if each has exactly **the same number** of columns, exactly the **same column names** in the **same position**! To do so, we can use the function `bind_rows` from the `dplyr` package.
 
@@ -115,19 +115,19 @@ Next to using 'regular' data files like csv or Excel files, I also regularly use
 library(sf)
 
 reserve_sf <- st_read(
-  dsn = "./posts/230210_load_data/data/OlifantsWest.shp"
+  dsn = "./data/OlifantsWest.shp"
 )
-
-reserve_sf
 ```
 
-The `st_read` automatically reads in any projection in the same directory or folder if there is any. If you know the coordinate system of the shapefile, but don't have the '.prj' file you set the projection yourself using the `st_set_crs` function by providing an EPSG code. One of the most common EPSG-code is 4326 which is for WGS 84 (longitude and latitude). You can find the EPSG-code for your area on <https://epsg.io/>. Next to 4326, I will also use 32736 to transform the longitude-latitude data to UTM which uses metres as the measuring units.
+The `st_read` automatically reads in any projection in the same directory or folder if there is any. If you know the coordinate system of the shapefile, but don't have the '.prj' file you set the projection yourself using the `st_set_crs` function by providing an EPSG code. One of the most common EPSG-code is 4326 which is for WGS 84 (longitude and latitude).
 
 ```{r load-data-crs}
 reserve_sf <- st_set_crs(
   x = reserve_sf, value = 4326
 )
 ```
+
+You can find the EPSG-code for your area on <https://epsg.io/>. I also find myself often converting WGS84 to a projected system (like UTM) because it makes measuring distances much easier. If you didn't fully understand what I just talked about, then you might want to read up on GIS and coordinated systems. A good resource to start is [this blog post](https://www.spatialpost.com/coordinate-system-used-gis/).
 
 That's it for reading data in R. If you encountered any problems or have your own way of reading in multiple files, just let me know!
 

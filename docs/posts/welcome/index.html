@@ -37,10 +37,12 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -80,7 +82,7 @@ ul.task-list li input[type="checkbox"] {
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
     <a class="nav-link" href="../../index.html">
  <span class="menu-text">Home</span></a>
@@ -100,6 +102,9 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text"></span></a>
   </li>  
 </ul>
+              <div class="quarto-toggle-container">
+                  <a href="" class="quarto-color-scheme-toggle nav-link" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+              </div>
               <div id="quarto-search" class="" title="Search"></div>
           </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
@@ -111,10 +116,14 @@ ul.task-list li input[type="checkbox"] {
     <div class="quarto-title column-body">
       <h1 class="title">Introduction to Interactive Reporting Tool</h1>
                                 <div class="quarto-categories">
-                <div class="quarto-category">about</div>
                 <div class="quarto-category">introduction</div>
+                <div class="quarto-category">interactive</div>
                 <div class="quarto-category">reporting</div>
                 <div class="quarto-category">learning</div>
+                <div class="quarto-category">wildlife</div>
+                <div class="quarto-category">South Africa</div>
+                <div class="quarto-category">poaching</div>
+                <div class="quarto-category">patrol</div>
               </div>
                   </div>
   </div>
@@ -150,19 +159,40 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<p>Hello there and welcome to my blog! My name is Nick and I have a background in Criminology and Wildlife Conservation. I spend some time in South Africa for my PhD research and helped the team building an automated reporting tool for wildlife security using the programming language ‘R’.</p>
-<p>In this series, I’ll go into detail on how the report works and go step-by-step on how to build your own reporting tool. I’ll refer a lot to patrolling data and poaching in South Africa, because that was the context in which the original tool was built. Of course, you can easily adapt it to your situation and needs. The data that I used in this series are all simulated and do not reflect the actual situation on the ground. I did this on purpose to protect the patrolling rangers and not avoid spreading sensitive information on patrols and endangered species. The data is just to illustrate how the reporting tool works so that you can perhaps build your own.</p>
+<p>Hello there and welcome to the first blog post of the series. In this series, I’ll go into detail on how the interactive report tool works and go step-by-step on how to build your own reporting tool. Of course, you can always adapt it to your own situation and needs.</p>
+<section id="reporting-tool" class="level2">
+<h2 class="anchored" data-anchor-id="reporting-tool">Reporting tool</h2>
+<p>The reporting tool provides patrol managers with a quick overview of patrol activity in the last 24 hours. Think of things like patrol routes and observations of poaching activity, but also includes ecological data like reported signs of endangered wildlife species. This helps managers and planners with providing answers to some basic questions like: Which teams went where for their patrols? Did they cover the most important areas? Who reported any suspicious activities and where? The first page of the report contains clear visuals like maps, graphs showing patrol activity and the number of wildlife observations. The other page has a couple of tables with detailed information on every patrol like kilometres walked, time on patrol etc. But also more details on the patrol observations if they encountered any suspicious activities.</p>
+</section>
+<section id="why-this-tool" class="level2">
+<h2 class="anchored" data-anchor-id="why-this-tool">Why this tool?</h2>
+<p>I first developed the initial version of the reporting tool during my first field trip to South Africa in 2016. During my stay I met the team I worked with for my PhD research and they were writing a summary report every single day to share with all the patrol managers. This took them a lot of work and even impacted my own work, because we always had to get back from the field a few hours earlier for the team to write these reports. My supervisor and I believed this could be done much easier by automating it in R. So in my spare time, I have been chatting with the team members to figure what they would like to see in the report and how information it currently contains. This took me a couple of weeks to get a first version up and running, and it definitely wasn’t perfect. But, more importantly, it was working, showed more or less the same kind of information as before, and now only took a few minutes in R!</p>
+<p>I later updated the R-script a couple of times whenever they encountered errors or to include some more detailed information. However, it was still report with static information and graphs. This caused a couple of problems. For example, the maps and figures sometimes looked a bit crowed, especially when more teams went out than usual. If we could include some kind of interactivity, we could then select only a handful teams at the team and better understand which areas each team covered and what they reported. That is what I have been working on recently, to update the current version of the report to a more interactive report.</p>
+</section>
+<section id="about-this-series" class="level2">
+<h2 class="anchored" data-anchor-id="about-this-series">About this series</h2>
+<p>In this series, I’ll go into detail on how the interactive report tool works and go step-by-step on how to build your own reporting tool. Each post will stand on it’s own, like how to read in your data, how to make a map, and some minor spatial analyses. All the steps combined should help you to make your own interactive reporting tool.</p>
+<p>I’ll refer a lot to patrolling data and poaching in South Africa, because that was the context in which the original tool was built. The data that I used in this series are all simulated and do not reflect the actual situation on the ground. I did this on purpose to avoid spreading sensitive information on security and the distribution of endangered species. The data is just to illustrate how the reporting tool works so that you can perhaps build your own.</p>
+</section>
+<section id="new-to-r-and-rstudio" class="level2">
+<h2 class="anchored" data-anchor-id="new-to-r-and-rstudio">New to R and RStudio?</h2>
 <p>I assume you are already somewhat familiar with R and RStudio. If you are a complete beginner and are interested in learning R and how to install it, I suggest the following resources:</p>
 <ul>
 <li><p><a href="https://www.geeksforgeeks.org/introduction-to-r-studio/">Installing R and RStudio</a>: A guide on how to download and install R and RStudio on your computer. It will also guide you around the RStudio interface.</p></li>
 <li><p><a href="https://cran.r-project.org/doc/manuals/r-release/R-intro.pdf">Introduction to R</a>: Not the nicest looking guide, but very detailed guide on how the R-language works</p></li>
-<li><p><a href="https://tidyverse.tidyverse.org/">Tidyverse</a>: The tidyverse is a collection of open source packages for the R programming language introduced by Hadley Wickham and his team that “share an underlying design philosophy, grammar, and data structures” of tidy data. It encourages making your R-script much more readable and understandable. Throughout the blog series, I’ll rely heavily on the packages within the Tidyverse.</p></li>
+<li><p><a href="https://tidyverse.tidyverse.org/">Tidyverse</a>: The tidyverse is a collection of open source packages for the R programming language introduced by Hadley Wickham and his team that “share an underlying design philosophy, grammar, and data structures” of tidy data. It encourages making your R-script much more readable and understandable. Throughout this blog series, I’ll rely heavily on the packages within the Tidyverse.</p></li>
 <li><p><a href="https://r4ds.hadley.nz/">R for Data Science</a>: This is a great resource focussing on how to use R for Data Science. It’s very detailed and clearly explains how to do all sort of things in R; from simple things like reading your data to more advanced topics like web scraping.</p></li>
 </ul>
 <p>I hope you’ll find these posts useful and feel free to reach out if you’re stuck with something or want to learn more about anything related to conservation, criminology, or R.</p>
-<p><img src="230206_giraffe.jpg" class="img-fluid"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="230206_giraffe.jpg" class="img-fluid figure-img" width="608"></p>
+<p></p><figcaption class="figure-caption">The wonderful wildlife of South Africa</figcaption><p></p>
+</figure>
+</div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -185,6 +215,121 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
   const icon = "";
   const anchorJS = new window.AnchorJS();
   anchorJS.options = {

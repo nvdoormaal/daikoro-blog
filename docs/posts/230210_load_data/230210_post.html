@@ -8,7 +8,7 @@
 
 <meta name="author" content="Nick van Doormaal">
 <meta name="dcterms.date" content="2023-02-10">
-<meta name="description" content="In this post, I will show how to get your data in R">
+<meta name="description" content="In this post, I will show how to get your data in R; the first step of building the interactive report">
 
 <title>R for Conservation Criminology and Wildlife Security - Load the data</title>
 <style>
@@ -101,10 +101,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -144,7 +146,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
     <a class="nav-link" href="../../index.html">
  <span class="menu-text">Home</span></a>
@@ -164,6 +166,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
  <span class="menu-text"></span></a>
   </li>  
 </ul>
+              <div class="quarto-toggle-container">
+                  <a href="" class="quarto-color-scheme-toggle nav-link" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+              </div>
               <div id="quarto-search" class="" title="Search"></div>
           </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
@@ -176,7 +181,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <h1 class="title">Load the data</h1>
                   <div>
         <div class="description">
-          In this post, I will show how to get your data in R
+          In this post, I will show how to get your data in R; the first step of building the interactive report
         </div>
       </div>
                           <div class="quarto-categories">
@@ -185,6 +190,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
                 <div class="quarto-category">data.table</div>
                 <div class="quarto-category">fread</div>
                 <div class="quarto-category">csv</div>
+                <div class="quarto-category">sf</div>
+                <div class="quarto-category">spatial</div>
               </div>
                   </div>
   </div>
@@ -220,82 +227,187 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
-<section id="heading-1" class="level1">
-<h1>Heading 1</h1>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-<section id="heading-2---merriweather" class="level2">
-<h2 class="anchored" data-anchor-id="heading-2---merriweather">Heading 2 - Merriweather</h2>
-<p>Nam suscipit est nec dui eleifend, at dictum elit ullamcorper.</p>
-<section id="r-code" class="level3">
-<h3 class="anchored" data-anchor-id="r-code">R code</h3>
-<p>This is `inline` code plus a small code chunk.</p>
+<section id="get-your-data-in-r" class="level1">
+<h1>Get your data in R</h1>
+<p>Before we can do anything, we first need to somehow get our data in R. In this blog post, I’ll go into detail on several ways to do that. I</p>
+<section id="reading-a-single-csv-file" class="level2">
+<h2 class="anchored" data-anchor-id="reading-a-single-csv-file">Reading a single csv-file</h2>
+<p>Perhaps the most common type of files used in data analyses are csv-files. You can read in your data using one of the ways below.</p>
+<section id="read_csv" class="level3">
+<h3 class="anchored" data-anchor-id="read_csv">read_csv</h3>
+<p>The function <code>read_csv</code> comes from the <code>readr</code>-package (which is part of the Tidyverse). The <code>read_csv</code> function takes several arguments for more advanced manipulations, but let’s keep things simple for now.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr) <span class="do">## this package is needed to get access to the read_csv function</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg) <span class="sc">+</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(cty, hwy), <span class="at">size =</span> <span class="dv">4</span>, <span class="at">alpha =</span> <span class="fl">0.5</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="230210_post_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>patrol_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">file =</span> <span class="st">"./data/230210_example_route.csv"</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><code>read_csv</code> assumes that your data is separated by comma’s ‘,’. You could also use the function <code>read_csv2</code> when your data is separated by semi columns ‘;’. If you have a different kind of delimiter or want to be explicit about it, you can also use the function <code>read_delim</code>, also part of the <code>readr</code> package. When you use this function, you have to specify the delimiter with the <code>delim</code>-argument.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>patrol_data_delim <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">file =</span> <span class="st">"./data/230210_example_route.csv"</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">delim =</span> <span class="st">","</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">all.equal</span>(patrol_data, patrol_data_delim)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
 </div>
 </div>
+<p>Both datasets are load exactly in the same way. Another advantage of using the <code>readr</code> package is that date-time columns are recognised and formatted to a special class for working with dates and times. This works only if all the entries are formatted in the same way. I tend to format date as year-month-day and time as hour:minute:seconds. This has been working for me in almost every scenario.</p>
 </section>
-<section id="tabsets" class="level3">
-<h3 class="anchored" data-anchor-id="tabsets">3 - Tabsets</h3>
+<section id="fread" class="level3">
+<h3 class="anchored" data-anchor-id="fread">fread</h3>
+<p>One downside of read_csv is that it might not be the fastest option. I haven’t really come across scenario where this really mattered, but if speed and performance is of concern to you then check out <code>fread</code> from the <code>data.table</code> package.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">collapse =</span> T)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> palmerpenguins<span class="sc">::</span>penguins <span class="sc">%&gt;%</span> </span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(sex))</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>lm.mod <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">sex =</span> <span class="fu">if_else</span>(sex <span class="sc">==</span> <span class="st">'male'</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lm</span>(<span class="at">data =</span> ., sex <span class="sc">~</span> body_mass_g <span class="sc">+</span> bill_length_mm <span class="sc">+</span> species) </span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>preds_lm <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span> </span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">prob.fit =</span> <span class="fu">plogis</span>(lm.mod<span class="sc">$</span>fitted.values),</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">prediction =</span> <span class="fu">if_else</span>(prob.fit <span class="sc">&gt;</span> <span class="fl">0.5</span>, <span class="st">'male'</span>, <span class="st">'female'</span>),</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">correct =</span> <span class="fu">if_else</span>(sex <span class="sc">==</span> prediction, <span class="st">'correct'</span>, <span class="st">'incorrect'</span>)</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>patrol_data_fread <span class="ot">&lt;-</span> <span class="fu">fread</span>(</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">input =</span> <span class="st">"./data/230210_example_route.csv"</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Transforming new</a></li></ul>
-<div class="tab-content">
-<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p>The cool thing of <code>fread</code> is that it automatically figures out what the delimiter is, so you don’t need to specify that. It is also very fast and efficient and the preferred way for working with very large csv-files. The downside, however, is that you cannot read other types of Excel-files like xlsx-files; it has to be a csv. Also, it won’t automatically recognise columns with date and time.</p>
+</section>
+</section>
+<section id="reading-in-multiple-files" class="level2">
+<h2 class="anchored" data-anchor-id="reading-in-multiple-files">Reading in multiple files</h2>
+<p>It’s not crazy to imagine that you have to load in several files, for example, one for each patrol team. That was the case for the reserve in South Africa as well. Every day I had to download several csv-files, one for every patrol team.</p>
+<p>You don’t have to specify all the files in R, but you can read in multiple files. First we need to list all the files that we want to read in, and then apply the <code>read_csv</code> function to each one. (or another function for reading data). There are two ways we can easily list all the files: through a common word in every file, or put them all in one separate folder.</p>
 <div class="cell">
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>preds_lm <span class="sc">%&gt;%</span> </span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(body_mass_g, bill_length_mm, <span class="at">col =</span> correct)) <span class="sc">+</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">size =</span> <span class="dv">4</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="fu">vars</span>(species)) <span class="sc">+</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">'grey60'</span>, thematic<span class="sc">::</span><span class="fu">okabe_ito</span>(<span class="dv">3</span>)[<span class="dv">3</span>])) <span class="sc">+</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">3000</span>, <span class="dv">6000</span>, <span class="dv">1000</span>)) <span class="sc">+</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">'top'</span>, </span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">color =</span> <span class="st">'black'</span>),</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>()</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">'Body mass (in g)'</span>,</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">'Bill length (in mm)'</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<p><img src="230210_post_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="do">## List all the csv-files in a folder</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>csv_files <span class="ot">&lt;-</span> <span class="fu">list.files</span>(</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">path =</span> <span class="st">"./data/"</span>, <span class="do">## Here's where you specify the directory to your data files</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">pattern =</span> <span class="st">".csv"</span>, <span class="do">## Here's where you specify the file extension or the common word across the files</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>csv_files</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "230210_another_example_route.csv" "230210_example_route.csv"        </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="do">## List all the csv-files that have the word 'route' in common</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>route_files <span class="ot">&lt;-</span> <span class="fu">list.files</span>(</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">path =</span> <span class="st">"./data/"</span>,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">pattern =</span> <span class="st">"route"</span>, <span class="do">## Here's where you specify the file extension or the common word across the files</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">full.names =</span> <span class="cn">TRUE</span> <span class="do">## This needs to be set to TRUE for reading multiple files later</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In the above two example, you can see that you can either focus on the file extension (for example when all the files and no other files are in single folder) or specify a word that’s common across the files (for example ‘route’). In the last example, I’ve also set the argument <code>full.names = TRUE</code>. This is necessary for when we want to apply the <code>read_csv</code> function. To do so, we can use the <code>map</code> function from the <code>purrr</code> package. With <code>map</code> we can basically apply the same function to every file we want.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>patrol_data_list <span class="ot">&lt;-</span> <span class="fu">map</span>(</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  route_files, <span class="do">## here we specify our datafiles</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  read_csv <span class="do">## then we specify the function that we want to apply to every file. You can also use 'read_delim' or 'fread' here as well</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>patrol_data_list</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+# A tibble: 1,036 × 6
+   device_id timestamp           accuracy heading_d latitude longitude
+   &lt;chr&gt;     &lt;dttm&gt;                 &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+ 1 Tango     1999-12-31 20:12:04        4     356      -24.2      30.9
+ 2 Tango     1999-12-31 20:12:08        4     360      -24.2      30.9
+ 3 Tango     1999-12-31 20:12:11        5     354      -24.2      30.9
+ 4 Tango     1999-12-31 20:12:14        6     352.     -24.2      30.9
+ 5 Tango     1999-12-31 20:12:18        4       3.9    -24.2      30.9
+ 6 Tango     1999-12-31 20:12:21        4     358      -24.2      30.9
+ 7 Tango     1999-12-31 20:12:25        4     356      -24.2      30.9
+ 8 Tango     1999-12-31 20:12:29        4     356.     -24.2      30.9
+ 9 Tango     1999-12-31 20:12:32        4     359      -24.2      30.9
+10 Tango     1999-12-31 20:12:36        4     357      -24.2      30.9
+# … with 1,026 more rows
+
+[[2]]
+# A tibble: 998 × 6
+   device_id timestamp           accuracy heading_d latitude longitude
+   &lt;chr&gt;     &lt;dttm&gt;                 &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+ 1 Lema      2000-01-01 08:20:23        6        87    -24.2      30.9
+ 2 Lema      2000-01-01 08:20:27        6        85    -24.2      30.9
+ 3 Lema      2000-01-01 08:20:30        6        81    -24.2      30.9
+ 4 Lema      2000-01-01 08:20:33        6        82    -24.2      30.9
+ 5 Lema      2000-01-01 08:20:37        6        79    -24.2      30.9
+ 6 Lema      2000-01-01 08:20:41        6        86    -24.2      30.9
+ 7 Lema      2000-01-01 08:20:45        7        83    -24.2      30.9
+ 8 Lema      2000-01-01 08:20:48        6        85    -24.2      30.9
+ 9 Lema      2000-01-01 08:20:51        6        85    -24.2      30.9
+10 Lema      2000-01-01 08:20:55        6        86    -24.2      30.9
+# … with 988 more rows</code></pre>
 </div>
 </div>
+<p>The output of <code>patrol_data_list</code> is a list of data frames; one data.frame for every file. You can try replacing <code>route_files</code> with <code>csv_files</code> to see what happens when you don’t specify <code>full.names = TRUE</code>.</p>
+<p>Reading the files in separately is handy and efficient, but is usually not easy to work with. Combining all the dataframes in a list is possible if each has exactly <strong>the same number</strong> of columns, exactly the <strong>same column names</strong> in the <strong>same position</strong>! To do so, we can use the function <code>bind_rows</code> from the <code>dplyr</code> package.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>all_patrol_data <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(patrol_data_list)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>all_patrol_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2,034 × 6
+   device_id timestamp           accuracy heading_d latitude longitude
+   &lt;chr&gt;     &lt;dttm&gt;                 &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+ 1 Tango     1999-12-31 20:12:04        4     356      -24.2      30.9
+ 2 Tango     1999-12-31 20:12:08        4     360      -24.2      30.9
+ 3 Tango     1999-12-31 20:12:11        5     354      -24.2      30.9
+ 4 Tango     1999-12-31 20:12:14        6     352.     -24.2      30.9
+ 5 Tango     1999-12-31 20:12:18        4       3.9    -24.2      30.9
+ 6 Tango     1999-12-31 20:12:21        4     358      -24.2      30.9
+ 7 Tango     1999-12-31 20:12:25        4     356      -24.2      30.9
+ 8 Tango     1999-12-31 20:12:29        4     356.     -24.2      30.9
+ 9 Tango     1999-12-31 20:12:32        4     359      -24.2      30.9
+10 Tango     1999-12-31 20:12:36        4     357      -24.2      30.9
+# … with 2,024 more rows</code></pre>
 </div>
 </div>
+<p>Now all our patrol files are in a single data.frame and ready for data cleaning and analyses!</p>
+</section>
+<section id="reading-spatial-data" class="level2">
+<h2 class="anchored" data-anchor-id="reading-spatial-data">Reading spatial data</h2>
+<p>Next to using ‘regular’ data files like csv or Excel files, I also regularly use spatial data. THE package for anything related spatial is the <code>sf</code> package. The function to read in spatial data like point or polygon is <code>st_read</code>. Below is an example where I read in the boundaries of the reserve. The name of the file is ‘OlifantsWest.shp’</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>reserve_sf <span class="ot">&lt;-</span> <span class="fu">st_read</span>(</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">dsn =</span> <span class="st">"./data/OlifantsWest.shp"</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Reading layer `OlifantsWest' from data source 
+  `C:\Users\Daikoro\Documents\R\daikoro-blog\posts\230210_load_data\data\OlifantsWest.shp' 
+  using driver `ESRI Shapefile'
+Simple feature collection with 1 feature and 11 fields
+Geometry type: POLYGON
+Dimension:     XY
+Bounding box:  xmin: 278735 ymin: 7317223 xmax: 295162 ymax: 7327195
+Projected CRS: WGS 84 / UTM zone 36S</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>reserve_sf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Simple feature collection with 1 feature and 11 fields
+Geometry type: POLYGON
+Dimension:     XY
+Bounding box:  xmin: 278735 ymin: 7317223 xmax: 295162 ymax: 7327195
+Projected CRS: WGS 84 / UTM zone 36S
+         Region  f  d    ID TEXT border    area layer path Priority Name
+1 Olifants West NA NA 98013  183   &lt;NA&gt; 9717547  &lt;NA&gt; &lt;NA&gt;       NA &lt;NA&gt;
+                        geometry
+1 POLYGON ((284528.5 7317223,...</code></pre>
+</div>
+</div>
+<p>The <code>st_read</code> automatically reads in any projection in the same directory or folder if there is any. If you know the coordinate system of the shapefile, but don’t have the ‘.prj’ file you set the projection yourself using the <code>st_set_crs</code> function by providing an EPSG code. One of the most common EPSG-code is 4326 which is for WGS 84 (longitude and latitude). You can find the EPSG-code for your area on <a href="https://epsg.io/" class="uri">https://epsg.io/</a>. Next to 4326, I will also use 32736 to transform the longitude-latitude data to UTM which uses metres as the measuring units.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>reserve_sf <span class="ot">&lt;-</span> <span class="fu">st_set_crs</span>(</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> reserve_sf, <span class="at">value =</span> <span class="dv">4326</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>That’s it for reading data in R. If you encountered any problems or have your own way of reading in multiple files, just let me know!</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="230210_goshawk.JPG" class="img-fluid figure-img" width="384"></p>
+<p></p><figcaption class="figure-caption">African goshawk (taken in South Africa)</figcaption><p></p>
+</figure>
 </div>
 
 
-</section>
 </section>
 </section>
 
@@ -320,6 +432,121 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
   const icon = "";
   const anchorJS = new window.AnchorJS();
   anchorJS.options = {
