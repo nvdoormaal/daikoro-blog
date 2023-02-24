@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://nvdoormaal.github.io/daikoro-blog/about.html</loc>
-    <lastmod>2023-02-10T14:08:38.113Z</lastmod>
+    <loc>https://nvdoormaal.github.io/daikoro-blog/index.html</loc>
+    <lastmod>2023-02-24T10:07:33.667Z</lastmod>
   </url>
   <url>
-    <loc>https://nvdoormaal.github.io/daikoro-blog/index.html</loc>
-    <lastmod>2023-02-24T09:10:57.525Z</lastmod>
+    <loc>https://nvdoormaal.github.io/daikoro-blog/about.html</loc>
+    <lastmod>2023-02-24T10:07:51.875Z</lastmod>
   </url>
   <url>
     <loc>https://nvdoormaal.github.io/daikoro-blog/posts/230210_load_data/230210_post.html</loc>
-    <lastmod>2023-02-24T09:11:04.180Z</lastmod>
+    <lastmod>2023-02-24T10:08:11.658Z</lastmod>
   </url>
   <url>
     <loc>https://nvdoormaal.github.io/daikoro-blog/posts/welcome/index.html</loc>
-    <lastmod>2023-02-24T08:45:47.344Z</lastmod>
+    <lastmod>2023-02-24T10:07:10.840Z</lastmod>
   </url>
 </urlset>

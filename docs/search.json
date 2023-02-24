@@ -1,17 +1,17 @@
 [
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About me",
-    "section": "",
-    "text": "Hello there and welcome to my blog! My name is Nick van Doormaal and I have a background in Criminology and Wildlife Conservation. I spend some time in South Africa for my PhD research and studied different poaching problems, including rhino poaching and bushmeat poaching. Nowadays I focus on things closer to home: crimes and activities that are harmful to the Dutch environment. Things like illegal removal of asbestos, dumps of synthetic drug waste, and trafficking of electronic waste.\nI spent most of my time analysing data and I have become a big fan of using R. I have been using it for all sorts of cool stuff like data wrangling, creating interactive visualisations, spatial analyses and making maps.\nI hope you’ll find these posts useful and feel free to reach out if you’re stuck with something or want to learn more about anything related to conservation, criminology, or R.\nCheers!"
-  },
-  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Interactive Reports for Wildlife Security in RStudio",
     "section": "",
     "text": "Load the data\n\n\n\n\n\n\n\nload\n\n\nread\n\n\ndata.table\n\n\nfread\n\n\ncsv\n\n\nsf\n\n\nspatial\n\n\n\n\nIn this post, I will show how to get your data in R; the first step of building the interactive report\n\n\n\n\n\n\nFeb 10, 2023\n\n\nNick van Doormaal\n\n\n\n\n\n\n  \n\n\n\n\nIntroduction to Interactive Reporting Tool\n\n\n\n\n\n\n\nintroduction\n\n\ninteractive\n\n\nreporting\n\n\nlearning\n\n\nwildlife\n\n\nSouth Africa\n\n\npoaching\n\n\npatrol\n\n\n\n\n\n\n\n\n\n\n\nFeb 6, 2023\n\n\nNick van Doormaal\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About me",
+    "section": "",
+    "text": "Hello there and welcome to my blog! My name is Nick van Doormaal and I have a background in Criminology and Wildlife Conservation. I spend some time in South Africa for my PhD research and studied different poaching problems, including rhino poaching and bushmeat poaching. Nowadays I focus on things closer to home: crimes and activities that are harmful to the Dutch environment. Things like illegal removal of asbestos, dumps of synthetic drug waste, and trafficking of electronic waste.\nI spent most of my time analysing data and I have become a big fan of using R. I have been using it for all sorts of cool stuff like data wrangling, creating interactive visualisations, spatial analyses and making maps.\nI hope you’ll find these posts useful and feel free to reach out if you’re stuck with something or want to learn more about anything related to conservation, criminology, or R.\nCheers!"
   },
   {
     "objectID": "posts/230210_load_data/230210_post.html",
