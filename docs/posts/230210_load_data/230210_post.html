@@ -334,7 +334,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 # … with 988 more rows</code></pre>
 </div>
 </div>
-<p>The output of <code>patrol_data_list</code> is a list of data frames; one data.frame for every file. You can try replacing <code>route_files</code> with <code>csv_files</code> to see what happens when you don’t specify <code>full.names = TRUE</code>.</p>
+<p>The output of <code>patrol_data_list</code> is a list of data frames; one data.frame for every file. You can try replacing <code>route_files</code> with the object <code>csv_files</code> to see what happens when you don’t specify <code>full.names = TRUE</code>.</p>
 <p>Reading the files in separately is handy and efficient, but is usually not easy to work with. Combining all the dataframes in a list is possible if each has exactly <strong>the same number</strong> of columns, exactly the <strong>same column names</strong> in the <strong>same position</strong>! To do so, we can use the function <code>bind_rows</code> from the <code>dplyr</code> package.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
@@ -380,25 +380,14 @@ Dimension:     XY
 Bounding box:  xmin: 278735 ymin: 7317223 xmax: 295162 ymax: 7327195
 Projected CRS: WGS 84 / UTM zone 36S</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>reserve_sf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Simple feature collection with 1 feature and 11 fields
-Geometry type: POLYGON
-Dimension:     XY
-Bounding box:  xmin: 278735 ymin: 7317223 xmax: 295162 ymax: 7327195
-Projected CRS: WGS 84 / UTM zone 36S
-         Region  f  d    ID TEXT border    area layer path Priority Name
-1 Olifants West NA NA 98013  183   &lt;NA&gt; 9717547  &lt;NA&gt; &lt;NA&gt;       NA &lt;NA&gt;
-                        geometry
-1 POLYGON ((284528.5 7317223,...</code></pre>
 </div>
-</div>
-<p>The <code>st_read</code> automatically reads in any projection in the same directory or folder if there is any. If you know the coordinate system of the shapefile, but don’t have the ‘.prj’ file you set the projection yourself using the <code>st_set_crs</code> function by providing an EPSG code. One of the most common EPSG-code is 4326 which is for WGS 84 (longitude and latitude). You can find the EPSG-code for your area on <a href="https://epsg.io/" class="uri">https://epsg.io/</a>. Next to 4326, I will also use 32736 to transform the longitude-latitude data to UTM which uses metres as the measuring units.</p>
+<p>The <code>st_read</code> automatically reads in any projection in the same directory or folder if there is any. If you know the coordinate system of the shapefile, but don’t have the ‘.prj’ file you set the projection yourself using the <code>st_set_crs</code> function by providing an EPSG code. One of the most common EPSG-code is 4326 which is for WGS 84 (longitude and latitude).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>reserve_sf <span class="ot">&lt;-</span> <span class="fu">st_set_crs</span>(</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> reserve_sf, <span class="at">value =</span> <span class="dv">4326</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>reserve_sf <span class="ot">&lt;-</span> <span class="fu">st_set_crs</span>(</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> reserve_sf, <span class="at">value =</span> <span class="dv">4326</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>You can find the EPSG-code for your area on <a href="https://epsg.io/" class="uri">https://epsg.io/</a>. I also find myself often converting WGS84 to a projected system (like UTM) because it makes measuring distances much easier. If you didn’t fully understand what I just talked about, then you might want to read up on GIS and coordinated systems. A good resource to start is <a href="https://www.spatialpost.com/coordinate-system-used-gis/">this blog post</a>.</p>
 <p>That’s it for reading data in R. If you encountered any problems or have your own way of reading in multiple files, just let me know!</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
